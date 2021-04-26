@@ -1,0 +1,1 @@
+~/Desktop/nand2tetris/tools/TextComparer.sh /Users/Robbinn/Desktop/CS\ 3650/project10_11/code/MainT.xml /Users/Robbinn/Desktop/CS\ 3650/project10_11/code/MainT_2.xml

@@ -1,44 +1,36 @@
 package com.siwen;
+import java.util.Set;
 
 public class StringToken {
 
-    static int NUMBER = 1;
-    static int OPERATOR = 2;
-    static int FUNCTION = 3;
-    static int UNKNOWN = -1;
-
-    static int LEFT = 7;
-    static int RIGHT = 8;
-
-    public StringToken(){}
     public StringToken(String str, int type) {
         _token = str;
         _type = type;
+        _keywords = Set.of("class","constructor","function","method","field","static","var","int","char","boolean",
+                "void","true","false","null","this","let","do","if","else","while","return");
+        _symbol = Set.of("{","}","(",")","[","]",".",",",";","+","-","*","/","&","|","<",">","=");
     }
 
     public int type(){
         return _type;
     }
 
-    public int intType() {
-        if(type() == 1 || type() == 2)
-            return NUMBER;
-        else if (type() == 5)
-            return OPERATOR;
-        else
-            return UNKNOWN;
-    }
-
     public String stringType() {
+        if (_keywords.contains(getToken()))
+            return "keyword";
+        else if (_symbol.contains(getToken()))
+            return "symbol";
+        else if((type() == 1 || type() == 3))
+            return "identifier";
+        else if (type() == 11 || type() == 13)
+            return "integerConstant";
+        else if (type() == 19)
+            return "stringConstant";
 
-        if(type() == 1 || type() == 2)
-            return "NUMBER";
-        else if (type() == 5)
-            return "OPERATOR";
-        else if (type() == 7)
-            return "PARENTHESIS";
+        else if (type() == 41)
+            return "SPACE";
 
-            //if type() = -1.
+        //in this program, means if type() = -1.
         else
             return "UNKNOWN";
     }
@@ -47,11 +39,13 @@ public class StringToken {
         return _token;
     }
 
-    private String _token;
-    private int _type;
+    private final String _token;
+    private final int _type;
+    private final Set<String> _keywords;
+    private final Set<String> _symbol;
 
     @Override
     public String toString() {
-        return "|" + getToken() + "|";
+        return getToken();
     }
 }
